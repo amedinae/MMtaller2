@@ -4,7 +4,7 @@ Created on Sun Dec 13 18:11:53 2020
 
 @author: Andres Medina
 """
-
+import numpy as np
 from scipy.optimize import minimize
 
 def SetMoneda(num, simbolo="US$", n_decimales=2):
@@ -76,7 +76,6 @@ def Espacio(x):
 def Riego(x):
     return (Riegos[0]*x[0] + Riegos[1]*x[1] + Riegos[2]*x[2] )
 
-
 r1 = {'type':'ineq', 'fun': conEspacio}
 r2 = {'type':'ineq', 'fun': conTrabajo}
 r3 = {'type':'ineq', 'fun': conRiego}
@@ -135,3 +134,31 @@ ganancia = R3-R1
 deltaTrabajo = trabajo3-trabajo1
 
 print("Contrate: "+ str(deltaTrabajo) +" Si les cuesta menos de: " + SetMoneda(ganancia,"COP"))
+print("-------------------------------")
+print("Resultados Adversos")
+resultadosAdversos = np.zeros(6)
+for i in range(3):
+    for j in range(2):
+        Rendimientos = [4.5,2.5,3.7]
+        Rendimientos[i] *= 0.8
+        Rendimientos[(i+j+1)%3] *= 1.3
+        #resultadosAdversos.append( minimize(Rendimiento,x0,method='SLSQP',bounds=fronteras,constraints=res1) )
+        resultadosAdversos[i+j]=-Rendimiento(results1.x)*1e6  
+        #print(Rendimientos)  
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        
