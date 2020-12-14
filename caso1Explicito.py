@@ -7,6 +7,7 @@ Created on Sat Dec  5 08:38:08 2020
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
+from skimage.io import imsave
 
 D = 1.8 #m**2/s
 L = 0.9 #m
@@ -57,8 +58,18 @@ x = np.zeros(n)
 for i in range(n):
     x[i] = dx*(i)
 
-plt.plot(x,mat_C[:,-1],"-k",label="t=10 s")    
-
+#plt.plot(x,mat_C[:,int(0.01*it)],label="t=0.1 s")  
+#plt.plot(x,mat_C[:,int(0.02*it)],label="t=0.2 s")  
+#plt.plot(x,mat_C[:,int(0.03*it)],label="t=0.3 s")  
+#plt.plot(x,mat_C[:,int(0.04*it)],label="t=0.4 s")  
+plt.plot(x,mat_C[:,int(0.05*it)],label="t=0.5 s")  
+#plt.plot(x,mat_C[:,int(0.06*it)],label="t=0.6 s")  
+#plt.plot(x,mat_C[:,int(0.07*it)],label="t=0.7 s")  
+#plt.plot(x,mat_C[:,int(0.08*it)],label="t=0.8 s")  
+#plt.plot(x,mat_C[:,int(0.09*it)],label="t=0.9 s")  
+plt.plot(x,mat_C[:,int(0.1*it)],label="t=1 s") 
+#plt.plot(x,mat_C[:,int(0.12*it)],label="t=1.2 s") 
+#plt.plot(x,mat_C[:,int(0.13*it)],label="t=1.3 s")    
 plt.legend(loc="upper right")
 plt.xlabel('Distancia (m)')
 plt.ylabel('Concentración (C)')
@@ -70,21 +81,21 @@ plt.style.use('classic')
 ims = []
 
 def imagen(c):
-    im = np.ones((2,2*len(c)))
-    w = 3
+    w = 10
+    im = np.ones((w,w*len(c)))
     for i in range(len(c)):
         im[:,w*i:w*i+w] *= c[i]
-    return im
-    
-imagenes = []
-for i in range(0,it,100):
+    return im #(im * 255 / np.max(im)).astype('uint8')
+ 
+for i in range(1,it):
     im = plt.imshow(imagen(mat_C[:,i]), animated=True)
-    ims.append([im])
+    #imsave('imagenes/test'+str(i)+'.png', imagen(mat_C[:,i]))
+
 
 ani = animation.ArtistAnimation(fig, ims, interval=10, blit=True,
                                 repeat_delay=100)
 
-writergif = animation.PillowWriter(fps=30)
+writergif = animation.PillowWriter(fps=1)
 #ani.save('dynamic_images.gif',writer=writergif)
 plt.colorbar()
 plt.show()
