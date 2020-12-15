@@ -49,12 +49,12 @@ for i in range(n):
         mat_futura[eq,nc] = b5+b8
         mat_futura[eq,nr] = -b #b6+b7
 
-        vec_F[eq] = -b8
+        vec_F[eq] = b8
         #print("Nodos a la izquierda")
     elif (i<n-1):
         mat_futura[eq,nc] = b5
-        mat_futura[eq,nl] = b7
         mat_futura[eq,nr] = b6
+        mat_futura[eq,nl] = b7
         
         #print("Nodos internos")
     else:
@@ -69,26 +69,20 @@ minv = np.linalg.inv(mat_futura)
 for j in range(1,it+1):
     #print("iteracion: ",j)
     C = minv@(C + vec_F)
-    mat_C[:,j] = -C*c_ref
+    mat_C[:,j] = C*c_ref
 
 x = np.zeros(n)
 for i in range(n):
     x[i] = dx*(i)*L
 
-#plt.plot(x,mat_C[:,int(0.01*it)],label="t=0.1 s")  
-#plt.plot(x,mat_C[:,int(0.02*it)],label="t=0.2 s")  
-#plt.plot(x,mat_C[:,int(0.03*it)],label="t=0.3 s")  
-#plt.plot(x,mat_C[:,int(0.04*it)],label="t=0.4 s")  
-plt.plot(x,mat_C[:,int(0.05*it)],label="t=0.5 s")  
-#plt.plot(x,mat_C[:,int(0.06*it)],label="t=0.6 s")  
-#plt.plot(x,mat_C[:,int(0.07*it)],label="t=0.7 s")  
-#plt.plot(x,mat_C[:,int(0.08*it)],label="t=0.8 s")  
-#plt.plot(x,mat_C[:,int(0.09*it)],label="t=0.9 s")  
+plt.plot(x,mat_C[:,int(0.01*it)],label="t=0.1 s")  
+plt.plot(x,mat_C[:,int(0.02*it)],label="t=0.2 s")  
+plt.plot(x,mat_C[:,int(0.05*it)],label="t=0.5 s")   
+plt.plot(x,mat_C[:,int(0.08*it)],label="t=0.8 s")  
 plt.plot(x,mat_C[:,int(0.1*it)],label="t=1 s") 
-#plt.plot(x,mat_C[:,int(0.12*it)],label="t=1.2 s") 
-#plt.plot(x,mat_C[:,int(0.13*it)],label="t=1.3 s")    
+plt.plot(x,mat_C[:,int(it)],label="t=10 s Implicito")    
 plt.legend(loc="upper right")
 plt.xlabel('Distancia (m)')
-plt.ylabel('Concentración (C)')
+plt.ylabel('Concentración (kg/m**3)')
 plt.grid()
-plt.show()    
+plt.show()       

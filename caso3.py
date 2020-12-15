@@ -137,14 +137,16 @@ print("Contrate: "+ str(deltaTrabajo) +" Si les cuesta menos de: " + SetMoneda(g
 print("-------------------------------")
 print("Resultados Adversos")
 resultadosAdversos = np.zeros(6)
+cnt = 0
 for i in range(3):
     for j in range(2):
         Rendimientos = [4.5,2.5,3.7]
         Rendimientos[i] *= 0.8
         Rendimientos[(i+j+1)%3] *= 1.3
         #resultadosAdversos.append( minimize(Rendimiento,x0,method='SLSQP',bounds=fronteras,constraints=res1) )
-        resultadosAdversos[i+j]=-Rendimiento(results1.x)*1e6  
-        #print(Rendimientos)  
+        resultadosAdversos[cnt]=-Rendimiento(results1.x)*1e6  
+        print(Rendimientos,SetMoneda(resultadosAdversos[cnt],"COP"))
+        cnt += 1
             
             
             
